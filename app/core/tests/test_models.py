@@ -1,7 +1,6 @@
 """
 Tests for models.
 """
-from decimal import Decimal
 from datetime import datetime
 
 from django.test import TestCase
@@ -67,4 +66,4 @@ class ModelTests(TestCase):
             leverage=10,
             title='BTC order created on 2023-01-13 14:30:12',
         )
-        self.assertEqual(str(order),order.title)
+        self.assertEqual(str(order), order.title)
