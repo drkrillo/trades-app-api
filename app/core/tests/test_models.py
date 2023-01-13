@@ -60,10 +60,11 @@ class ModelTests(TestCase):
         order = models.Order.objects.create(
             user=user,
             symbol = 'BTC',
-            date_time = datetime(2023, 1, 13, 14, 30, 12),
+            start_date_time = datetime(2023, 1, 13, 14, 30, 12),
+            initial_price=133100000,
             stop_loss = 131100000,
-            take_profit = 133000000,
+            take_profit = 163000000,
             leverage = 10,
             title = 'BTC order created on 2023-01-13 14:30:12',
         )
-        self.assertEqual(str(order), order(title))
+        self.assertEqual(str(order),order.title)

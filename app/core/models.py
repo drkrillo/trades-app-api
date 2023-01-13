@@ -1,6 +1,7 @@
 """
 Database models.
 """
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -42,3 +43,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Order(models.Model):
+    """Order objects."""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    start_date_time = models.DateTimeField()
+    close_date_time = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+    symbol = models.CharField(max_length=5)
+    stop_loss = models.IntegerField()
+    take_profit = models.IntegerField()
+    leverage = models.IntegerField()
+    initial_price = models.IntegerField()
+    closing_price = models.IntegerField(
+        null=True,
+        blank=True,
+        )
+    title = models.CharField(
+        max_length=255,
+        default=f'{symbol} order created on {str(start_date_time)}',
+        )
+
+    def __str__(self):
+        return self.title
