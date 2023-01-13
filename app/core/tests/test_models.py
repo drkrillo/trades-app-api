@@ -1,9 +1,13 @@
 """
 Tests for models.
 """
+from decimal import Decimal
+from datetime import datetime
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
+from core import models
 
 
 class ModelTests(TestCase):
@@ -46,3 +50,20 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_order(self):
+        """Test creating an order is successful"""
+        user = get_user_model().objects.create_user(
+            email='test@example.com',
+            password='test123',
+        )
+        order = models.Order.objects.create(
+            user=user,
+            symbol = 'BTC',
+            date_time = datetime(2023, 1, 13, 14, 30, 12),
+            stop_loss = 131100000,
+            take_profit = 133000000,
+            leverage = 10,
+            title = 'BTC order created on 2023-01-13 14:30:12',
+        )
+        self.assertEqual(str(order), order(title))
