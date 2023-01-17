@@ -84,7 +84,10 @@ class PrivateOrderApiTests(TestCase):
 
     def test_order_list_limited_to_user(self):
         """Test list of orders is limited to authenticated user."""
-        other_user = create_user(email='other@example.com', password='testpass123')
+        other_user = create_user(
+            email='other@example.com',
+            password='testpass123',
+            )
 
         create_order(user=other_user)
         create_order(user=self.user)
@@ -129,7 +132,7 @@ class PrivateOrderApiTests(TestCase):
     def test_partial_update(self):
         """Test partial update on an order."""
         original_amount = 100.0
-        original_stop_loss=131100.015
+        original_stop_loss = 131100.015
         order = create_order(
             user=self.user,
             start_date_time=datetime(
@@ -189,7 +192,7 @@ class PrivateOrderApiTests(TestCase):
 
     def test_update_user_returns_error(self):
         """Test changing order user results in an error."""
-        new_user = create_user(email='user2@example.com',password='test123')
+        new_user = create_user(email='user2@example.com', password='test123')
         order = create_order(user=self.user)
 
         payload = {'user': new_user.id}
