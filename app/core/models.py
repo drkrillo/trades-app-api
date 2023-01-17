@@ -57,11 +57,12 @@ class Order(models.Model):
         blank=True,
     )
     symbol = models.CharField(max_length=5)
-    stop_loss = models.IntegerField()
-    take_profit = models.IntegerField()
+    amount = models.FloatField(default=1.0)
+    stop_loss = models.FloatField()
+    take_profit = models.FloatField()
     leverage = models.IntegerField()
-    initial_price = models.IntegerField()
-    closing_price = models.IntegerField(
+    initial_price = models.FloatField()
+    closing_price = models.FloatField(
         null=True,
         blank=True,
         )
