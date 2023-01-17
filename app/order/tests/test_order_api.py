@@ -26,10 +26,11 @@ def detail_url(order_id):
     """Create and return an order detail URL."""
     return reverse('order:order-detail', args=[order_id])
 
+
 def create_order(user, **params):
     """Create and return a sample Order"""
     defaults = {
-        'symbol':'BTC',
+        'symbol': 'BTC',
         'amount': 100.0,
         'start_date_time': datetime(2023, 1, 13, 14, 30, 12),
         'initial_price': 133100.455,
@@ -100,14 +101,16 @@ class PrivateOrderApiTests(TestCase):
         url = detail_url(order.id)
         res = self.client.get(url)
         serializer = OrderDetailSerializer(order)
-        
+
         self.assertEqual(res.data, serializer.data)
 
     def test_create_order(self):
         """Test creating an order."""
         payload = {
-            'symbol':'BTC',
-            'start_date_time': datetime(2023, 1, 13, 14, 30, 12, tzinfo=pytz.UTC),
+            'symbol': 'BTC',
+            'start_date_time': datetime(
+                2023, 1, 13, 14, 30, 12, tzinfo=pytz.UTC
+            ),
             'initial_price': 133100.455,
             'stop_loss': 131100.015,
             'take_profit': 163000.355,
@@ -116,7 +119,7 @@ class PrivateOrderApiTests(TestCase):
         res = self.client.post(ORDERS_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        
+
         order = Order.objects.get(id=res.data['id'])
         for k, v in payload.items():
             self.assertEqual(getattr(order, k), v)
