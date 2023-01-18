@@ -32,7 +32,7 @@ def create_order(user, **params):
     defaults = {
         'symbol': 'BTC',
         'amount': 100.0,
-        'start_date_time': datetime(2023, 1, 13, 14, 30, 12),
+        'start_date_time': datetime(2023, 1, 13, 14, 30, 12, tzinfo=pytz.UTC),
         'initial_price': 133100.455,
         'stop_loss': 131100.015,
         'take_profit': 163000.355,
@@ -211,7 +211,7 @@ class PrivateOrderApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Order.objects.filter(id=order.id).exists())
 
-    def test_order_other_users_order_error(self):
+    def test_delete_other_users_order_error(self):
         """Test trying to delete another user's order returns error."""
         new_user = create_user(email='user2@example.com', password='test123')
         order = create_order(user=new_user)
