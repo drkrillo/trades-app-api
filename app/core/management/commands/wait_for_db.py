@@ -1,5 +1,6 @@
-# Django commando to wait for Database to be available
-
+"""
+Django commando to wait for Database to be available
+"""
 import time
 from psycopg2 import OperationalError as Psycopg2Error
 from django.db.utils import OperationalError
