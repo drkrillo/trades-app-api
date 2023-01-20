@@ -58,7 +58,7 @@ class Order(models.Model):
         blank=True,
     )
     symbol = models.CharField(max_length=10)
-    amount = models.FloatField(default=1.0)
+    amount = models.FloatField(null=True)
     stop_loss = models.FloatField()
     take_profit = models.FloatField()
     leverage = models.IntegerField()
@@ -78,7 +78,7 @@ class Order(models.Model):
 
 class Crypto(models.Model):
     """Crypto historical data objects."""
-    datetime_id = models.DateTimeField(primary_key=True)
+    date_and_time = models.DateTimeField()
     low = models.FloatField()
     high = models.FloatField()
     open = models.FloatField()
