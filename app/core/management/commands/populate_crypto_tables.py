@@ -51,7 +51,7 @@ class Command(BaseCommand):
             data = get_data_from_api(symbol)
             for row in data:
                 Crypto.objects.create(
-                    datetime_id=datetime.fromtimestamp(row[0], tz).isoformat(),
+                    date_and_time=datetime.fromtimestamp(row[0], tz).isoformat(),
                     low=row[1],
                     high=row[2],
                     open=row[3],
