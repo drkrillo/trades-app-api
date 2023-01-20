@@ -1,6 +1,7 @@
 """
 Database models.
 """
+from datetime import datetime
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -56,7 +57,7 @@ class Order(models.Model):
         null=True,
         blank=True,
     )
-    symbol = models.CharField(max_length=5)
+    symbol = models.CharField(max_length=10)
     amount = models.FloatField(default=1.0)
     stop_loss = models.FloatField()
     take_profit = models.FloatField()
@@ -73,3 +74,14 @@ class Order(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Crypto(models.Model):
+    """Crypto historical data objects."""
+    datetime_id = models.DateTimeField(primary_key=True)
+    low = models.FloatField()
+    high = models.FloatField()
+    open = models.FloatField()
+    close = models.FloatField()
+    volume = models.FloatField()
+    symbol = models.CharField(max_length=10)
