@@ -72,9 +72,6 @@ class Order(models.Model):
         default=f'{symbol} order created on {str(start_date_time)}',
         )
 
-    def __unicode__(self):
-        return u"%i" % self.title
-
     def __str__(self):
         return self.title
 
