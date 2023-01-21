@@ -85,3 +85,7 @@ class Crypto(models.Model):
     close = models.FloatField()
     volume = models.FloatField()
     symbol = models.CharField(max_length=10)
+
+    class Meta:
+        ordering = ('date_and_time',)
+
