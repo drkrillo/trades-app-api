@@ -47,6 +47,10 @@ class Command(BaseCommand):
         """Loop through symbols to get data and update to db table."""
         tz = pytz.timezone('America/Los_Angeles')
         self.stdout.write('Starting to populate Crypto table...')
+        
+        self.stdout.write('Deleting old rows...')
+        Crypto.objects.all().delete()
+
         for symbol in SYMBOLS:
             data = get_data_from_api(symbol)
             for row in data:
