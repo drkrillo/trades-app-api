@@ -69,4 +69,3 @@ class ModelTests(TestCase):
             title='BTC order created on 2023-01-13T14:30:12.000Z',
         )
         self.assertEqual(str(order), order.title)
-        patched_check.assert_called_with(databases=['default'])
