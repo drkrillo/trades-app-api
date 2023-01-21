@@ -43,6 +43,34 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class CryptoAdmin(admin.ModelAdmin):
+    """Define de admin pages for Crypto."""
+    ordering=['date_and_time', 'symbol']
+    lisst_display = [
+        'date_and_time',
+        'symbol',
+        'low',
+        'high',
+        'open',
+        'close',
+        'volume',
+    ]
+    list_filter = ['symbol']
+    fieldsets = (
+        (None, {'fields': (
+            'date_and_time',
+            'symbol',
+            'open',
+            'close',
+            'volume',
+            'low',
+            'high',
+            )
+                }
+        ),
+    )
+
+
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Order)
-admin.site.register(models.Crypto)
+admin.site.register(models.Crypto, CryptoAdmin)
