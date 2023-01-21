@@ -69,7 +69,7 @@ class Order(models.Model):
         )
     title = models.CharField(
         max_length=255,
-        default=f'{symbol} order created on {str(start_date_time)}',
+        default=f'{symbol.value_to_string} order created on {start_date_time.value_to_string}',
         )
 
     def __str__(self):

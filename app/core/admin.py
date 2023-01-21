@@ -43,8 +43,20 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
+class OrderAdmin(admin.ModelAdmin):
+    """Define the admin pages for Order."""
+    ordering=['start_date_time', 'symbol']
+    list_display = (
+        'user',
+        'start_date_time',
+        'amount',
+        'leverage',
+    )
+    list_filter = ['symbol']
+
+
 class CryptoAdmin(admin.ModelAdmin):
-    """Define de admin pages for Crypto."""
+    """Define the admin pages for Crypto."""
     ordering=['date_and_time', 'symbol']
     list_display = (
         'date_and_time',
@@ -59,5 +71,5 @@ class CryptoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Order)
+admin.site.register(models.Order, OrderAdmin)
 admin.site.register(models.Crypto, CryptoAdmin)
