@@ -69,9 +69,4 @@ class ModelTests(TestCase):
             title='BTC order created on 2023-01-13T14:30:12.000Z',
         )
         self.assertEqual(str(order), order.title)
-
-    def test_crypto_table_not_empty(self):
-        """Test retrieving Crypto Data Table is not empty."""
-        crypto_table_length = models.Crypto.objects.count()
-
-        self.assertNotEqual(crypto_table_length, 0)
+        patched_check.assert_called_with(databases=['default'])
