@@ -18,9 +18,10 @@ def get_data_from_api(
     symbol,
     end_datetime=datetime.now(),
     window_days=30,
-    granularity=60):
+    granularity=60
+):
     """
-    Generates API call to gather symbol data from end datetime, 
+    Generates API call to gather symbol data from end datetime,
     x nummber of days window.
     Granularity defines if records are daily, monthly, hourly, etc.
     (default: seconds).
@@ -35,8 +36,8 @@ def get_data_from_api(
     }
 
     data = requests.get(f'{COINBASE_URL}products/{symbol}/candles',
-                      params=parameters,
-                      headers={"content-type":"application/json"})
+        params=parameters,
+        headers={"content-type": "application/json"})
     return data.json()
 
 
@@ -47,7 +48,7 @@ class Command(BaseCommand):
         """Loop through symbols to get data and update to db table."""
         tz = pytz.timezone('America/Los_Angeles')
         self.stdout.write('Starting to populate Crypto table...')
-        
+
         self.stdout.write('Deleting old rows...')
         Crypto.objects.all().delete()
 
