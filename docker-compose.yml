@@ -66,6 +66,7 @@ services:
     depends_on:
       - redis
       - app
+      - db
     
   celery-beat:
     build: 
@@ -86,6 +87,7 @@ services:
     depends_on:
       - redis
       - app
+      - db
 
 volumes:
   dev-db-data:
