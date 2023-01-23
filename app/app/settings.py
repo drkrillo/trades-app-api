@@ -10,8 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
+
+import app.tasks
+
+from celery.schedules import crontab
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,3 +145,17 @@ AUTH_USER_MODEL = 'core.User'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+CELERY_BEAT_SCHEDULE = {
+    "gather_intra_minute_data": {
+        "task": "app.tasks.gather_intra_minute_data",
+        "schedule": 15.0,
+    },
+    "gather_minute_data": {
+        "task": "app.tasks.gather_minute_data",
+        "schedule": 60.0,
+    }
+}
+
+SYMBOLS = ['ETH-USD', 'BTC-USD', 'AVAX-USD']
+COINBASE_URL = 'https://api.pro.coinbase.com/'
