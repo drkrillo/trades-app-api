@@ -45,7 +45,7 @@ class UserAdmin(BaseUserAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     """Define the admin pages for Order."""
-    ordering=['start_date_time', 'symbol']
+    ordering = ['start_date_time', 'symbol']
     list_display = (
         'user',
         'start_date_time',
@@ -57,7 +57,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 class CryptoAdmin(admin.ModelAdmin):
     """Define the admin pages for Crypto."""
-    ordering=['date_and_time', 'symbol']
+    ordering = ['date_and_time', 'symbol']
     list_display = (
         'date_and_time',
         'symbol',
