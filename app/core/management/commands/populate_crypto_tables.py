@@ -55,7 +55,10 @@ class Command(BaseCommand):
             data = get_data_from_api(symbol)
             for row in data:
                 Crypto.objects.create(
-                    date_and_time=datetime.fromtimestamp(row[0], tz).isoformat(),
+                    date_and_time=datetime.fromtimestamp(
+                        row[0],
+                        tz
+                    ).isoformat(),
                     low=row[1],
                     high=row[2],
                     open=row[3],
@@ -63,6 +66,14 @@ class Command(BaseCommand):
                     volume=row[5],
                     symbol=symbol,
                 )
-            self.stdout.write(self.style.SUCCESS(f'{symbol} populated successfully.'))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f'{symbol} populated successfully.'
+                )
+            )
 
-        self.stdout.write(self.style.SUCCESS('All Symbol data populated successfully.'))
+        self.stdout.write(
+            self.style.SUCCESS(
+                'All Symbol data populated successfully.'
+            )
+        )
