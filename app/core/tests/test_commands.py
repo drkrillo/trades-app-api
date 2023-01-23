@@ -2,7 +2,6 @@
 Test Django Custom management commands
 """
 
-from unittest import TestCase
 from unittest.mock import patch
 
 from psycopg2 import OperationalError as Psycopg2Error
@@ -14,8 +13,6 @@ from django.test import (
     SimpleTestCase,
 )
 from core.models import Crypto
-
-from rest_framework import status
 
 
 @patch('core.management.commands.wait_for_db.Command.check')
