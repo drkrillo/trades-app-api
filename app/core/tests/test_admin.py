@@ -44,7 +44,7 @@ class AdminSiteTests(TestCase):
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, 200)
-    
+
     def test_crypto_list(self):
         """Test that crypto data is listed on page."""
         url = reverse('admin:core_crypto_changelist')
