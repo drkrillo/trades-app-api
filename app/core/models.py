@@ -1,7 +1,6 @@
 """
 Database models.
 """
-from datetime import datetime
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -69,7 +68,7 @@ class Order(models.Model):
         )
     title = models.CharField(
         max_length=255,
-        default=f'{symbol.value_to_string} order created on {start_date_time.value_to_string}',
+        default=f'{symbol} order created on {start_date_time}',
         )
 
     def __str__(self):
