@@ -45,7 +45,7 @@ class Command(BaseCommand):
     """Command to populate database tables with external API."""
 
     def handle(self, *args, **options):
-        """Loop through symbols to get data and update to db table."""
+        """Loop through symbols to get data and upidate to db table."""
         tz = pytz.timezone('America/Los_Angeles')
         self.stdout.write('Starting to populate Crypto table...')
 
