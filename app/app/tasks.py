@@ -16,10 +16,12 @@ def get_data_from_api(symbol):
     """
     Generates API call to gather real-time symbol data.
     """
-
-    data = requests.get(f'{COINBASE_URL}products/{symbol}/ticker',
-        headers={"content-type": "application/json"})
+    data = requests.get(
+        f'{COINBASE_URL}products/{symbol}/ticker',
+        headers={"content-type": "application/json"}
+    )
     return data.json()
+
 
 def get_data_from_api_lastmin(
     symbol,
@@ -41,10 +43,13 @@ def get_data_from_api_lastmin(
         'granularity': str(granularity),
     }
 
-    data = requests.get(f'{COINBASE_URL}products/{symbol}/candles',
+    data = requests.get(
+        f'{COINBASE_URL}products/{symbol}/candles',
         params=parameters,
-        headers={"content-type": "application/json"})
+        headers={"content-type": "application/json"}
+    )
     return data.json()
+
 
 @shared_task
 def gather_intra_minute_data():
@@ -52,6 +57,7 @@ def gather_intra_minute_data():
         data = get_data_from_api(symbol)
 
         logger.info(f"symbol: {symbol} | {data['price']}")
+
 
 @shared_task
 def gather_minute_data():
