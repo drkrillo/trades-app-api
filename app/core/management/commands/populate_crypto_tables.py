@@ -35,9 +35,11 @@ def get_data_from_api(
         'granularity': str(granularity),
     }
 
-    data = requests.get(f'{COINBASE_URL}products/{symbol}/candles',
+    data = requests.get(
+        f'{COINBASE_URL}products/{symbol}/candles',
         params=parameters,
-        headers={"content-type": "application/json"})
+        headers={"content-type": "application/json"}
+    )
     return data.json()
 
 
