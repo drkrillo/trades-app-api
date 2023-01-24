@@ -30,19 +30,6 @@ services:
     depends_on:
       - db
 
-  db: 
-    image: postgres:13-alpine
-    volumes:
-      - dev-db-data:/var/lib/postgresql/data
-    environment:
-      - DB_HOST=db
-      - DB_NAME=devdb
-      - DB_USER=devuser
-      - DB_PASS=changeme
-      - DJANGO_DB=postgresql
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
-  
   redis:
     image: redis:alpine
 
@@ -87,6 +74,21 @@ services:
       - redis
       - app
       - db
-
+      
+  db: 
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - DJANGO_DB=postgresql
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    ports:
+      - "5432:5432"
+  
 volumes:
   dev-db-data:
