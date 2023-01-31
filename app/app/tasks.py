@@ -43,7 +43,7 @@ def get_data_from_api_lastmin(
     parameters = {
         'start': start_datetime.isoformat(),
         'end': end_datetime.isoformat(),
-        'granularity': str(granularity), # We use str as params
+        'granularity': str(granularity),
     }
 
     data = requests.get(
@@ -56,7 +56,7 @@ def get_data_from_api_lastmin(
 
 @shared_task
 def get_intra_minute_data(symbols=SYMBOLS):
-        get_data_from_api(symbols)
+    get_data_from_api(symbols)
 
 
 @shared_task
