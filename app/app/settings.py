@@ -147,15 +147,12 @@ REST_FRAMEWORK = {
 }
 
 CELERY_BEAT_SCHEDULE = {
-    "gather_intra_minute_data": {
-        "task": "app.tasks.gather_intra_minute_data",
+    "get_intra_minute_data": {
+        "task": "app.tasks.get_intra_minute_data",
         "schedule": 15.0,
     },
-    "gather_minute_data": {
-        "task": "app.tasks.gather_minute_data",
+    "get_minute_data": {
+        "task": "app.tasks.get_minute_data",
         "schedule": 60.0,
     }
 }
-
-SYMBOLS = ['ETH-USD', 'BTC-USD', 'AVAX-USD']
-COINBASE_URL = 'https://api.pro.coinbase.com/'
