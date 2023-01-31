@@ -60,6 +60,7 @@ def get_data_from_api_lastmin(
 
         return data.json(), data.status_code
 
+
 @shared_task
 def get_intra_minute_data(symbols=SYMBOLS):
     get_data_from_api(symbols)
