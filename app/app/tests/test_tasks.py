@@ -4,6 +4,7 @@ Tests for Celery Tasks functions.
 from django.test import SimpleTestCase
 
 from app import tasks
+from app.app.tasks import SYMBOLS
 
 
 SYMBOLS_VALID = ['BTC-USD', ]
@@ -25,5 +26,19 @@ class TasksTest(SimpleTestCase):
         """Test the response of the API ticker endpoint fails."""
 
         res, status = tasks.get_data_from_api(SYMBOLS_NOT_VALID)
+
+        self.assertEqual(status, 404)
+
+    def test_get_data_from_api_lastmin_ok(self):
+        """Test the response of the API for last minute data is OK."""
+
+        res, status = tasks.get_data_from_api_lastmin(SYMBOLS_VALID
+
+        self.assertEqual(status, 200)
+    
+    def test_get_data_from_api_lastmin_error(self):
+        """Test the response of the API for last minute data fails."""
+
+        res, status = tasks.get_data_from_api_lastmin(SYMBOLS_NOT_VALID)
 
         self.assertEqual(status, 404)
