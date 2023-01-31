@@ -12,15 +12,18 @@ COINBASE_URL = 'https://api.pro.coinbase.com/'
 logger = get_task_logger(__name__)
 
 
-def get_data_from_api(symbol):
+def get_data_from_api(symbols=SYMBOLS):
     """
     Generates API call to gather real-time symbol data.
     """
-    data = requests.get(
-        f'{COINBASE_URL}products/{symbol}/ticker',
-        headers={"content-type": "application/json"}
-    )
-    return data.json()
+    for symbol in symbols:
+        data = requests.get(
+            f'{COINBASE_URL}products/{symbol}/ticker',
+            headers={"content-type": "application/json"}
+        )
+        logger.info(f"symbol: {symbol} | {data.json()}")
+
+        return data.json(), data.status_code
 
 
 def get_data_from_api_lastmin(
@@ -40,7 +43,7 @@ def get_data_from_api_lastmin(
     parameters = {
         'start': start_datetime.isoformat(),
         'end': end_datetime.isoformat(),
-        'granularity': str(granularity),
+        'granularity': str(granularity), # We use str as params
     }
 
     data = requests.get(
@@ -52,15 +55,12 @@ def get_data_from_api_lastmin(
 
 
 @shared_task
-def gather_intra_minute_data():
-    for symbol in SYMBOLS:
-        data = get_data_from_api(symbol)
-
-        logger.info(f"symbol: {symbol} | {data['price']}")
+def get_intra_minute_data(symbols=SYMBOLS):
+        get_data_from_api(symbols)
 
 
 @shared_task
-def gather_minute_data():
+def get_minute_data():
     for symbol in SYMBOLS:
         data = get_data_from_api_lastmin(symbol)
 
