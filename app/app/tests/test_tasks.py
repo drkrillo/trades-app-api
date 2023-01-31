@@ -23,7 +23,7 @@ class TasksTest(SimpleTestCase):
 
     def test_get_data_from_api_error(self):
         """Test the response of the API ticker endpoint fails."""
-        
+
         res, status = tasks.get_data_from_api(SYMBOLS_NOT_VALID)
 
         self.assertEqual(status, 404)
