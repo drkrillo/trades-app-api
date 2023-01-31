@@ -21,13 +21,15 @@ def get_data_from_api(symbols=SYMBOLS):
             f'{COINBASE_URL}products/{symbol}/ticker',
             headers={"content-type": "application/json"}
         )
-        logger.info(f"symbol: {symbol} | {data.json()}")
+        logger.info(
+            f"symbol: {symbol} | {data.json()}"
+        )
 
         return data.json(), data.status_code
 
 
 def get_data_from_api_lastmin(
-    symbol,
+    symbols=SYMBOLS,
     end_datetime=datetime.now(),
     granularity=60
 ):
@@ -46,13 +48,17 @@ def get_data_from_api_lastmin(
         'granularity': str(granularity),
     }
 
-    data = requests.get(
-        f'{COINBASE_URL}products/{symbol}/candles',
-        params=parameters,
-        headers={"content-type": "application/json"}
-    )
-    return data.json()
+    for symbol in symbols:
+        data = requests.get(
+            f'{COINBASE_URL}products/{symbol}/candles',
+            params=parameters,
+            headers={"content-type": "application/json"}
+        )
+        logger.info(
+            f"symbol: {symbol} | {data.json()}"
+        )
 
+        return data.json(), data.status_code
 
 @shared_task
 def get_intra_minute_data(symbols=SYMBOLS):
@@ -60,8 +66,5 @@ def get_intra_minute_data(symbols=SYMBOLS):
 
 
 @shared_task
-def get_minute_data():
-    for symbol in SYMBOLS:
-        data = get_data_from_api_lastmin(symbol)
-
-        logger.info(f"CLOSED: {symbol} | {data[0][4]}")
+def get_minute_data(symbols=SYMBOLS):
+    get_data_from_api_lastmin(symbols)
